@@ -1,13 +1,13 @@
 import { NgFor } from "@angular/common";
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import { Observable } from "rxjs";
-import { Filter } from "src/app/types";
 
 @Component({
   selector: 'paginate',
   template: `
     <ul class="pagination flex gap-2 items-center select-none justify-center">
+        <small>total: {{_size}}</small>
         <li class="paginate-items mr-4 pt-0" [class.disabled]="page === 1">
           <button class="disabled:text-slate-300 rounded-full w-6 h-6" (click)="goToPage(page - 1)" [disabled]="page === 1">
             <mat-icon fontIcon="keyboard_arrow_left"></mat-icon>
@@ -33,10 +33,10 @@ import { Filter } from "src/app/types";
 export class PaginationComponent {
   pages: number[] = [];
   _size!: number;
-  @Input() set size(value: Observable<number>) {
+  @Input() set size(value: Observable<{pageSize:number}>) {
     value.subscribe(res => {
-      this._size = res
-      this.pages = Array.from({ length: res }, (_, index) => { return index + 1 });
+      this._size = res.pageSize
+      this.pages = Array.from({ length: res.pageSize }, (_, index) => { return index + 1 });
     })
   }
   @Input() page = 1;
@@ -66,6 +66,9 @@ export class PaginationComponent {
     for (let page = startPage; page <= endPage; page++) {
       pages.push(page);
     }
+
+    if(this.page > this._size) this.goToPage(1)
+
     return pages;
   }
 

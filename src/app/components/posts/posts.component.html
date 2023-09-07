@@ -1,26 +1,43 @@
 <div class="select-none">
   <header class="pb-4 mb-4 border-b border-slate-400 flex justify-between items-center">
-    <button class="border border-slate-200 rounded-md px-4 flex items-center justify-center leading-8 hover:bg-slate-100">
-      <mat-icon aria-hidden="false" aria-label="read more" fontIcon="filter_list"></mat-icon>
-    </button>
-    <paginate [size]="pageSize" (pageChange)="changePage($event)" [activePage]="activePage"></paginate>
-    <!-- <button class="border border-slate-200 rounded-md px-4 leading-8 hover:bg-slate-100">Fetch Data</button> -->
+    <div class="flex gap-2">
+      <button (click)="openDialog()"
+        class="border border-slate-200 rounded-md px-4 flex items-center justify-center h-8 hover:bg-slate-100">
+        <mat-icon aria-hidden="false" aria-label="read more" fontIcon="filter_list"></mat-icon>
+      </button>
+      <div class="text-sm flex gap-2">
+        <ng-template [ngIf]="(filters | async)?.search">
+          <div class="px-4 leading-8 bg-slate-100">
+            Search: {{(filters | async)?.search}}
+          </div>
+        </ng-template>
+        <ng-template [ngIf]="(filters | async)?.sort">
+          <div class="px-4 leading-8 bg-slate-100">
+            Sort: {{(filters | async)?.sort === 0 ? 'A-Z' : 'Z-A'}}
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <paginate *ngIf="(posts | async)?.pageSize" [size]="posts" (pageChange)="changePage($event)"
+      [activePage]="activePage"></paginate>
   </header>
   <div>
-    <ng-template [ngIf]="posts && !(isLoading | async)" [ngIfElse]="empty">
+    <ng-template [ngIf]="(posts | async)?.data?.length && !(isLoading | async)" [ngIfElse]="empty">
       <ul class="grid grid-cols-2 gap-4">
-        <ng-container *ngFor="let item of posts | async">
-          <li [routerLink]=" '' + item.id" class="p-4 group border border-slate-200 rounded-md cursor-pointer hover:shadow-lg transition-shadow duration-150">
-              <h3 class="font-medium leading-8">
-                {{item.title}}
-              </h3>
-              <p class="text-sm leading-6 text-ellipsis line-clamp-2">
-                {{item.body}}
-              </p>
-              <button class="flex items-center text-sm mt-4 leading-8 group-hover:text-blue-600">
-                <span>More</span>
-                <mat-icon class="text-base leading-6" aria-hidden="false" aria-label="read more" fontIcon="keyboard_arrow_right"></mat-icon>
-              </button>
+        <ng-container *ngFor="let item of (posts | async)?.data">
+          <li [routerLink]=" '' + item.id"
+            class="p-4 group border border-slate-200 rounded-md cursor-pointer hover:shadow-lg transition-shadow duration-150">
+            <h3 class="font-medium leading-8">
+              {{item.title}}
+            </h3>
+            <p class="text-sm leading-6 text-ellipsis line-clamp-2">
+              {{item.body}}
+            </p>
+            <button class="flex items-center text-sm mt-4 leading-8 group-hover:text-blue-600">
+              <span>More</span>
+              <mat-icon class="text-base leading-6" aria-hidden="false" aria-label="read more"
+                fontIcon="keyboard_arrow_right"></mat-icon>
+            </button>
           </li>
         </ng-container>
       </ul>
@@ -29,7 +46,12 @@
       <ng-template [ngIf]="!(isLoading | async)" [ngIfElse]="loading">
         <div class="flex flex-col justify-center items-center">
           <img src="assets/images/empty-list.jpg" alt="empty" loading="lazy">
-          <p class="font-medium">List is Empty</p>
+          {{fecthError | async}}
+          <p *ngIf="!(fecthError | async);else error" class="font-medium">List is Empty</p>
+          <ng-template #error>
+            <button (click)="fetchAgain()" class="bg-rose-600 text-white leading-8 px-6 hover:bg-rose-500">Try Fetch
+              Again</button>
+          </ng-template>
         </div>
       </ng-template>
       <ng-template #loading>

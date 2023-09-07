@@ -1,12 +1,14 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, KeyValuePipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { Store, StoreModule } from '@ngrx/store';
-import { selectActivePage, selectApiState, selectFilters, selectPageSize, selectPosts } from 'src/app/states/selectors';
+import { selectActivePage, selectApiState, selectError, selectFilters, selectPosts } from 'src/app/states/selectors';
 import { PaginationComponent } from '../pagination/pagination.component';
-import { filterData, loadData, loadDataSuccess, pageIndexData } from 'src/app/states/actions';
+import { filterData, loadData, pageIndexData } from 'src/app/states/actions';
 import { LoadingComponent } from '../loading/loading.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { FilterDialog } from '../dialog/filter.dialog';
 
 @Component({
   selector: 'app-posts',
@@ -21,23 +23,35 @@ import { LoadingComponent } from '../loading/loading.component';
     StoreModule,
     AsyncPipe,
     PaginationComponent,
-    LoadingComponent
+    LoadingComponent,
+    MatDialogModule,
+    KeyValuePipe
   ],
 })
 export class PostsComponent {
-  
+
   posts = this.store.select(selectPosts);
-  pageSize = this.store.select(selectPageSize);
   filters = this.store.select(selectFilters);
   activePage = this.store.select(selectActivePage);
   isLoading = this.store.select(selectApiState);
+  fecthError = this.store.select(selectError);
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private dialog: MatDialog) { }
   changePage(e: number) {
-    console.log(e);
-    
     this.store.dispatch(pageIndexData({
       pageIndex: e
     }))
+  }
+
+  fetchAgain() {
+    this.store.dispatch(loadData())
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(FilterDialog, { data: this.filters });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result)
+        this.store.dispatch(filterData(result))
+    });
   }
 }

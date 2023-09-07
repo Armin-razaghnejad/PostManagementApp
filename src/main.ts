@@ -8,6 +8,7 @@ import { provideStore } from '@ngrx/store';
 import { dataReducer, filterReducer, pageReducer } from './app/states/reducers';
 import { provideEffects } from '@ngrx/effects';
 import { PostEffects } from './app/states/effect';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -15,7 +16,8 @@ bootstrapApplication(AppComponent, {
     provideRouter(APP_ROUTE),
     PostsService,
     provideEffects(PostEffects),
-    provideStore({ posts: dataReducer, filter: filterReducer, page: pageReducer })
+    provideStore({ posts: dataReducer, filter: filterReducer, page: pageReducer }),
+    provideAnimations()
   ]
 }).catch(e => console.error(e))
 

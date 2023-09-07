@@ -34,8 +34,8 @@ export class SingleComponent implements OnInit {
   ngOnInit(): void {
     this.store.select(selectPosts)
       .subscribe(res => {
-        if(!res.length) return;
-        const post = res.find(i => i.id == this.postId);
+        if(!res.data.length) return;
+        const post = res.data.find(i => i.id == this.postId);
         if (!post) return this.router.navigate(['/']);
         return this.post = post;
       })
