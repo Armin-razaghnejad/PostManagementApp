@@ -1,0 +1,35 @@
+<div>
+  <p class="mb-4 text-sm">
+    <span class="page-path" routerLink="/">Posts / </span>
+    <span class="page-path font-medium">Add Post</span>
+  </p>
+  <div class="border border-slate-200 rounded-md overflow-hidden">
+    <header class="bg-slate-50 py-8 text-center font-medium text-2xl">
+      Add New Post
+    </header>
+    <section class="flex gap-2">
+      <img class="mx-auto" src="/assets/images/add-post.jpg" alt="add post" loading="lazy">
+      <form class="p-6 grid grid-cols-1 gap-4 w-1/2" [formGroup]="addPostForm" (ngSubmit)="submit()">
+        <div class="relative">
+          <ng-template [ngIf]="addPostForm.controls.title.touched && addPostForm.controls.title.invalid">
+            <small class="text-rose-500 absolute top-2 right-2">Title is Invalid</small>
+          </ng-template>
+          <label for="title" class="block mb-2">Post Title:</label>
+          <input formControlName="title" placeholder="Write Post Title" class="text-sm h-10 w-full px-4" maxlength="30">
+        </div>
+        <div class="relative">
+          <ng-template [ngIf]="addPostForm.controls.body.touched && addPostForm.controls.body.invalid">
+            <small class="text-rose-500 absolute top-2 right-2">Body is Invalid</small>
+          </ng-template>
+          <label for="title" class="block mb-2">Post Body:</label>
+          <textarea formControlName="body" placeholder="Write Post Body" class="text-sm w-full resize-none p-4" rows="10" maxlength="500"></textarea>
+        </div>
+        <button [disabled]="addPostForm.invalid" class="bg-blue-500 hover:bg-blue-600 w-36 mx-auto text-white leading-10">Submit</button>
+      </form>
+    </section>
+    <footer class="p-4 text-sm text-slate-600">
+      <p>User Id: 11
+      </p>
+    </footer>
+  </div>
+</div>
