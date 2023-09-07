@@ -1,20 +1,21 @@
 import { createReducer, on } from "@ngrx/store";
-import { addDataSuccess, filterData, loadDataSuccess, pageIndexData } from "./actions";
-import { Post, Filter } from "../types";
+import { addDataSuccess, filterData, loadData, loadDataFailure, loadDataSuccess, pageIndexData } from "./actions";
+import { Post, Filter, StatePost } from "../types";
 
-export const initialState: ReadonlyArray<Post> = [];
-export const initialFilterState: Filter = {
+const initialState: StatePost = { loading: true, data: [] };
+const initialFilterState: Filter = {
   pageSize: 10,
 };
-export const initialPageState = {
+const initialPageState = {
   pageIndex: 1,
 };
 
-
 export const dataReducer = createReducer(
   initialState,
-  on(loadDataSuccess, (_state, { data }) => data),
-  on(addDataSuccess, (_state, { data }) => [..._state, data])
+  on(loadData, (state) => ({ ...state, loading: true })),
+  on(loadDataSuccess, (_state, { data }) => ({ data, loading: false })),
+  on(addDataSuccess, (_state, { data }) => ({ data: [..._state.data, data], loading: false })),
+  on(loadDataFailure, (_state, { error }) => ({ data: _state.data, message: error.message, loading: false })),
 )
 
 export const filterReducer = createReducer(

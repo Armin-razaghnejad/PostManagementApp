@@ -1,5 +1,5 @@
 <div>
-  <ng-template [ngIf]="post" [ngIfElse]="empty">
+  <ng-template [ngIf]="post" [ngIfElse]="loading">
     <p class="mb-4 text-sm">
       <span class="page-path" routerLink="/">Posts / </span>
       <span class="page-path font-medium">{{post.id}}</span>
@@ -18,7 +18,7 @@
       </footer>
     </div>
   </ng-template>
-  <ng-template #empty>
-    nist
+  <ng-template #loading>
+    <app-loading></app-loading>
   </ng-template>
 </div>

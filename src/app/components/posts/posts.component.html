@@ -7,7 +7,7 @@
     <!-- <button class="border border-slate-200 rounded-md px-4 leading-8 hover:bg-slate-100">Fetch Data</button> -->
   </header>
   <div>
-    <ng-template [ngIf]="posts" [ngIfElse]="empty">
+    <ng-template [ngIf]="posts && !(isLoading | async)" [ngIfElse]="empty">
       <ul class="grid grid-cols-2 gap-4">
         <ng-container *ngFor="let item of posts | async">
           <li [routerLink]=" '' + item.id" class="p-4 group border border-slate-200 rounded-md cursor-pointer hover:shadow-lg transition-shadow duration-150">
@@ -26,10 +26,15 @@
       </ul>
     </ng-template>
     <ng-template #empty>
-      <div class="flex flex-col justify-center items-center">
-        <img src="assets/images/empty-list.jpg" alt="empty" loading="lazy">
-        <p class="font-medium">List is Empty</p>
-      </div>
+      <ng-template [ngIf]="!(isLoading | async)" [ngIfElse]="loading">
+        <div class="flex flex-col justify-center items-center">
+          <img src="assets/images/empty-list.jpg" alt="empty" loading="lazy">
+          <p class="font-medium">List is Empty</p>
+        </div>
+      </ng-template>
+      <ng-template #loading>
+        <app-loading></app-loading>
+      </ng-template>
     </ng-template>
   </div>
 </div>

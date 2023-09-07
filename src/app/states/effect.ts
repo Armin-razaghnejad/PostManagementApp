@@ -8,20 +8,6 @@ import { PostsService } from "../services/posts.service";
 export class PostEffects {
   constructor(private actions: Actions, private service: PostsService) { }
 
-
-  // posteffect = createEffect(() => {
-  //   return this.actions.pipe(
-  //     ofType(postsActions.retrievedPostList),
-  //     mergeMap(
-  //       () => this.service.getPosts()
-  //         .pipe(
-  //           map(posts => ({ type: '[Post API] Posts Loaded Success', payload: posts })),
-  //           catchError(() => EMPTY)
-  //         )
-  //     )
-  //   );
-  // })
-
   myEffect = createEffect(() => {
     return this.actions.pipe(
       ofType(loadData), // Replace with your action
