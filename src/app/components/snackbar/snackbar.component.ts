@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from "@ngrx/store";
 import { PostsService } from "src/app/services/posts.service";
-import { selectAddApiState, selectApiState } from "src/app/states/selectors";
+import { selectAddApiState, selectApiState } from "src/app/states";
 
 @Component({
   selector: 'app-snackbar',

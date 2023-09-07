@@ -3,7 +3,6 @@ import { map, catchError, switchMap, of } from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { addData, addDataFailure, addDataSuccess, loadData, loadDataFailure, loadDataSuccess, } from "../states/actions";
 import { PostsService } from "../services/posts.service";
-import { Post } from "../types";
 
 @Injectable()
 export class PostEffects {

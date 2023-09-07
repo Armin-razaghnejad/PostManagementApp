@@ -3,9 +3,17 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { Store, StoreModule } from '@ngrx/store';
-import { selectActivePage, selectApiState, selectError, selectFilters, selectPosts } from 'src/app/states/selectors';
+import {
+  selectActivePage,
+  selectApiState,
+  selectError,
+  selectFilters,
+  selectPosts,
+  filterData,
+  loadData,
+  pageIndexData
+} from 'src/app/states';
 import { PaginationComponent } from '../pagination/pagination.component';
-import { filterData, loadData, pageIndexData } from 'src/app/states/actions';
 import { LoadingComponent } from '../loading/loading.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FilterDialog } from '../dialog/filter.dialog';

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { selectApiState, selectPosts } from 'src/app/states/selectors';
+import { selectApiState, selectPosts } from 'src/app/states';
 import { Post } from 'src/app/types/post';
 import { LoadingComponent } from '../loading/loading.component';
 

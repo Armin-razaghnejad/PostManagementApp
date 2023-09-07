@@ -3,9 +3,8 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { addData } from 'src/app/states/actions';
+import { addData, selectAddApiState } from 'src/app/states';
 import { LoadingComponent } from '../loading/loading.component';
-import { selectAddApiState } from 'src/app/states/selectors';
 import { PostsService } from 'src/app/services/posts.service';
 
 @Component({
