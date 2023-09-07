@@ -8,7 +8,7 @@ import { Filter } from "src/app/types";
 
 @Component({
   template: `
-    <div class="bg-white p-6 rounded-md w-96">
+    <div class="bg-white p-6 rounded-md sm:w-96 w-full">
       <form [formGroup]="filterForm" class="flex flex-col gap-4" (ngSubmit)="submit()">
         <div class="relative">
           <ng-template [ngIf]="filterForm.controls.search.touched && filterForm.controls.search.invalid">
@@ -58,6 +58,7 @@ export class FilterDialog {
     search: new FormControl('', Validators.maxLength(50)),
     sort: new FormControl(0),
     pageSize: new FormControl(10, [Validators.required, Validators.min(2), Validators.max(50)]),
+    // Post Api doesn't have any Author, so i didn't write
   })
 
   constructor(

@@ -26,6 +26,7 @@ export class AddPostComponent {
   addPostForm = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
     body: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(500)])
+    // Post Api doesn't have any author name! so i didn't write
   })
 
   constructor(private store: Store, private router: Router, private service: PostsService) { }

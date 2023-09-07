@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { selectPosts } from 'src/app/states/selectors';
+import { selectApiState, selectPosts } from 'src/app/states/selectors';
 import { Post } from 'src/app/types/post';
 import { LoadingComponent } from '../loading/loading.component';
 
@@ -32,12 +32,15 @@ export class SingleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.select(selectPosts)
-      .subscribe(res => {
-        if(!res.data.length) return;
-        const post = res.data.find(i => i.id == this.postId);
-        if (!post) return this.router.navigate(['/']);
-        return this.post = post;
-      })
+    this.store.select(selectApiState).subscribe(res => {
+      if (!res.loading && res.message) return this.router.navigate(['/']);
+      return this.store.select(selectPosts)
+        .subscribe(res => {
+          if (!res.data.length) return;
+          const post = res.data.find(i => i.id == this.postId);
+          if (!post) return this.router.navigate(['/']);
+          return this.post = post;
+        })
+    })
   }
 }

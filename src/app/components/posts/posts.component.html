@@ -1,6 +1,6 @@
 <div class="select-none">
-  <header class="pb-4 mb-4 border-b border-slate-400 flex justify-between items-center">
-    <div class="flex gap-2">
+  <header class="pb-4 mb-4 border-b border-slate-400 sm:flex justify-between items-center">
+    <div class="flex gap-2 sm:mb-0 mb-4">
       <button (click)="openDialog()"
         class="border border-slate-200 rounded-md px-4 flex items-center justify-center h-8 hover:bg-slate-100">
         <mat-icon aria-hidden="false" aria-label="read more" fontIcon="filter_list"></mat-icon>
@@ -23,21 +23,23 @@
   </header>
   <div>
     <ng-template [ngIf]="(posts | async)?.data?.length && !(apiState | async)?.loading" [ngIfElse]="empty">
-      <ul class="grid grid-cols-2 gap-4">
+      <ul class="grid sm:grid-cols-2 grid-cols-1 gap-4">
         <ng-container *ngFor="let item of (posts | async)?.data">
           <li [routerLink]=" '' + item.id"
-            class="p-4 group border border-slate-200 rounded-md cursor-pointer hover:shadow-lg transition-shadow duration-150">
-            <h3 class="font-medium leading-8">
+            class="group border relative pb-12 border-slate-200 rounded-md cursor-pointer hover:shadow-lg transition-shadow duration-150">
+            <h3 class="font-medium leading-8 bg-blue-50 p-4">
               {{item.title}}
             </h3>
-            <p class="text-sm leading-6 text-ellipsis line-clamp-2">
-              {{item.body}}
-            </p>
-            <button class="flex items-center text-sm mt-4 leading-8 group-hover:text-blue-600">
-              <span>More</span>
-              <mat-icon class="text-base leading-6" aria-hidden="false" aria-label="read more"
-                fontIcon="keyboard_arrow_right"></mat-icon>
-            </button>
+            <div class="sm:p-4 p-2">
+              <p class="text-sm leading-6 text-ellipsis line-clamp-2">
+                {{item.body}}
+              </p>
+              <button class="flex items-center text-sm sm:bottom-4 sm:left-4 bottom-2 left-2 leading-8 group-hover:text-blue-600 absolute">
+                <span>More</span>
+                <mat-icon class="text-base leading-6" aria-hidden="false" aria-label="read more"
+                  fontIcon="keyboard_arrow_right"></mat-icon>
+              </button>
+            </div>
           </li>
         </ng-container>
       </ul>

@@ -26,4 +26,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   .paginate-item-active{
       @apply bg-blue-600 text-white;
   }
+  label{
+    @apply sm:text-base text-sm
+  }
 }

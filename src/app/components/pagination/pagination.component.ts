@@ -6,22 +6,24 @@ import { Observable } from "rxjs";
 @Component({
   selector: 'paginate',
   template: `
-    <ul class="pagination flex gap-2 items-center select-none justify-center">
-        <small>total: {{_size}}</small>
-        <li class="paginate-items mr-4 pt-0" [class.disabled]="page === 1">
-          <button class="disabled:text-slate-300 rounded-full w-6 h-6" (click)="goToPage(page - 1)" [disabled]="page === 1">
-            <mat-icon fontIcon="keyboard_arrow_left"></mat-icon>
-          </button>
-        </li>
-        <li class="paginate-items" [class.paginate-item-active]="page === item" *ngFor="let item of getVisiblePages()">
-          <button class="page-link cursor-pointer w-full text-sm" (click)="goToPage(item)">{{ item }}</button>
-        </li>
-        <li class="paginate-items ml-4 pt-0" [class.disabled]="page === _size">
-          <button class="disabled:text-slate-300 rounded-full w-6 h-6" (click)="goToPage(page + 1)" [disabled]="page === _size">
-            <mat-icon fontIcon="keyboard_arrow_right"></mat-icon>
-          </button>
-        </li>
-      </ul>
+    <div class="sm:flex items-center gap-2">
+      <p class="text-xs text-center sm:mb-0 mb-2">total: {{_size}}</p>
+      <ul class="pagination flex gap-2 items-center select-none justify-center">
+          <li class="paginate-items sm:mr-4 mr:2 pt-0" [class.disabled]="page === 1">
+            <button class="disabled:text-slate-300 rounded-full w-6 h-6" (click)="goToPage(page - 1)" [disabled]="page === 1">
+              <mat-icon fontIcon="keyboard_arrow_left"></mat-icon>
+            </button>
+          </li>
+          <li class="paginate-items" [class.paginate-item-active]="page === item" *ngFor="let item of getVisiblePages()">
+            <button class="page-link cursor-pointer w-full text-sm" (click)="goToPage(item)">{{ item }}</button>
+          </li>
+          <li class="paginate-items sm:ml-4 ml:2 pt-0" [class.disabled]="page === _size">
+            <button class="disabled:text-slate-300 rounded-full w-6 h-6" (click)="goToPage(page + 1)" [disabled]="page === _size">
+              <mat-icon fontIcon="keyboard_arrow_right"></mat-icon>
+            </button>
+          </li>
+        </ul>
+  </div>
   `,
   standalone: true,
   imports: [
