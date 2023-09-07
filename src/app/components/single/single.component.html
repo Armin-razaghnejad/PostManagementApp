@@ -1,0 +1,24 @@
+<div>
+  <ng-template [ngIf]="post" [ngIfElse]="loading">
+    <p class="mb-4 text-sm">
+      <span class="page-path" routerLink="/">Posts / </span>
+      <span class="page-path font-medium">{{post.id}}</span>
+    </p>
+    <div class="border border-slate-200 rounded-md overflow-hidden">
+      <header class="bg-slate-50 md:py-8 sm:py-6 py-4 text-center font-medium md:text-2xl sm:text-lg">
+        <h1>{{post.title}}</h1>
+      </header>
+      <section class="p-6">
+        {{post.body}}
+      </section>
+      <footer class="p-4 text-sm text-slate-600">
+        <p>User Id: 
+          <span class="font-medium">{{post.userId}}</span>
+        </p>
+      </footer>
+    </div>
+  </ng-template>
+  <ng-template #loading>
+    <app-loading></app-loading>
+  </ng-template>
+</div>

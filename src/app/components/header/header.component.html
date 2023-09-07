@@ -1,0 +1,11 @@
+<header class="bg-slate-200 py-4 select-none px-4">
+  <menu class="flex gap-2 container mx-auto text-sm">
+    <ul class="flex gap-2">
+      <ng-container *ngFor="let menu of menus">
+        <li class="px-4 leading-8 rounded-md cursor-pointer" [routerLink]="menu.path" routerLinkActive="bg-white" [routerLinkActiveOptions]="{exact:true}">
+          {{menu.label}}
+        </li>
+      </ng-container>
+    </ul>
+  </menu>
+</header>
