@@ -33,7 +33,7 @@ export class PostsComponent {
   posts = this.store.select(selectPosts);
   filters = this.store.select(selectFilters);
   activePage = this.store.select(selectActivePage);
-  isLoading = this.store.select(selectApiState);
+  apiState = this.store.select(selectApiState);
   fecthError = this.store.select(selectError);
 
   constructor(private store: Store, private dialog: MatDialog) { }

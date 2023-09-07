@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { map, catchError, switchMap, of } from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { loadData, loadDataFailure, loadDataSuccess, } from "../states/actions";
+import { addData, addDataFailure, addDataSuccess, loadData, loadDataFailure, loadDataSuccess, } from "../states/actions";
 import { PostsService } from "../services/posts.service";
+import { Post } from "../types";
 
 @Injectable()
 export class PostEffects {
@@ -10,11 +11,24 @@ export class PostEffects {
 
   myEffect = createEffect(() => {
     return this.actions.pipe(
-      ofType(loadData), // Replace with your action
+      ofType(loadData),
       switchMap(() =>
         this.service.getPosts().pipe(
-          map(data => loadDataSuccess({ data })), // Replace with your action
-          catchError(error => of(loadDataFailure({ error }))) // Replace with your action
+          map(data => loadDataSuccess({ data })),
+          catchError(error => of(loadDataFailure({ error })))
+        )
+      )
+    )
+  }
+  );
+
+  addPostEffect = createEffect(() => {
+    return this.actions.pipe(
+      ofType(addData),
+      switchMap(({ data }) =>
+        this.service.addNewPosts(data).pipe(
+          map(data => addDataSuccess({data})),
+          catchError(error => of(addDataFailure({ error })))
         )
       )
     )

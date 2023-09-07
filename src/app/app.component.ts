@@ -4,6 +4,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { loadData } from './states/actions';
+import { SnackBarComponent } from './components/snackbar/snackbar.component';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +14,9 @@ import { loadData } from './states/actions';
   imports: [
     FooterComponent,
     HeaderComponent,
-    RouterOutlet
-  ]
+    RouterOutlet,
+    SnackBarComponent,
+  ],
 })
 export class AppComponent {
   constructor(store: Store) {

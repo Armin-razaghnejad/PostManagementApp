@@ -74,6 +74,7 @@ export class FilterDialog {
   }
 
   submit() {
+    if(this.filterForm.invalid) return;
     this.dialogRef.close(this.filterForm.value)
   }
 } 

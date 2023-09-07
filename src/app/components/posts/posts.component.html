@@ -22,7 +22,7 @@
       [activePage]="activePage"></paginate>
   </header>
   <div>
-    <ng-template [ngIf]="(posts | async)?.data?.length && !(isLoading | async)" [ngIfElse]="empty">
+    <ng-template [ngIf]="(posts | async)?.data?.length && !(apiState | async)?.loading" [ngIfElse]="empty">
       <ul class="grid grid-cols-2 gap-4">
         <ng-container *ngFor="let item of (posts | async)?.data">
           <li [routerLink]=" '' + item.id"
@@ -43,10 +43,9 @@
       </ul>
     </ng-template>
     <ng-template #empty>
-      <ng-template [ngIf]="!(isLoading | async)" [ngIfElse]="loading">
+      <ng-template [ngIf]="!(apiState | async)?.loading" [ngIfElse]="loading">
         <div class="flex flex-col justify-center items-center">
           <img src="assets/images/empty-list.jpg" alt="empty" loading="lazy">
-          {{fecthError | async}}
           <p *ngIf="!(fecthError | async);else error" class="font-medium">List is Empty</p>
           <ng-template #error>
             <button (click)="fetchAgain()" class="bg-rose-600 text-white leading-8 px-6 hover:bg-rose-500">Try Fetch

@@ -3,10 +3,12 @@
 @tailwind utilities;
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
+.mat-mdc-snack-bar-container.success .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) {
+  color: rgb(11, 204, 107);
+}
 @layer components {
   button {
-    @apply transition-colors duration-150 disabled:bg-slate-200 disabled:text-slate-400 rounded-md disabled:hover:bg-slate-200;
+    @apply outline-none transition-colors duration-150 disabled:bg-slate-200 disabled:text-slate-400 rounded-md disabled:hover:bg-slate-200;
   }
   input, textarea {
     @apply outline-none border border-slate-200 rounded-md;

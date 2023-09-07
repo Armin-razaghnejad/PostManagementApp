@@ -24,7 +24,10 @@
           <label for="title" class="block mb-2">Post Body:</label>
           <textarea formControlName="body" placeholder="Write Post Body" class="text-sm w-full resize-none p-4" rows="10" maxlength="500"></textarea>
         </div>
-        <button [disabled]="addPostForm.invalid" class="bg-blue-500 hover:bg-blue-600 w-36 mx-auto text-white leading-10">Submit</button>
+        <button *ngIf="!loading; else loadingApp" [disabled]="addPostForm.invalid" class="bg-blue-500 hover:bg-blue-600 w-36 mx-auto text-white leading-10">Submit</button>
+        <ng-template #loadingApp>
+          <app-loading></app-loading>
+        </ng-template>
       </form>
     </section>
     <footer class="p-4 text-sm text-slate-600">

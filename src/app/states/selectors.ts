@@ -1,7 +1,8 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { Filter, StatePost } from "../types";
+import { Filter, StateNewPost, StatePost } from "../types";
 
 export const selectPost = createFeatureSelector<StatePost>('posts');
+export const selectNewPost = createFeatureSelector<StateNewPost>('addPost');
 export const selectFilerPost = createFeatureSelector<Filter>('filter');
 export const selectPageIndexPost = createFeatureSelector<{ pageIndex: number }>('page');
 
@@ -24,8 +25,14 @@ export const selectPosts = createSelector(
 
 export const selectApiState = createSelector(
   selectPost,
-  (state) => state.loading
+  (state) => state
 )
+
+export const selectAddApiState = createSelector(
+  selectNewPost,
+  (state) => state
+)
+
 
 export const selectError = createSelector(
   selectPost,
